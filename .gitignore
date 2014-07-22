@@ -1,0 +1,10 @@
+/.DS_Store
+/.coverage
+/.venv
+/build
+/cov_html
+/dist
+*.egg-info
+*.log
+*.pyc
+*.swp
