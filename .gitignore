@@ -1,5 +1,6 @@
 /.DS_Store
 /.coverage
+/.tox
 /.venv
 /build
 /cov_html
@@ -8,3 +9,4 @@
 *.log
 *.pyc
 *.swp
+*.whl
