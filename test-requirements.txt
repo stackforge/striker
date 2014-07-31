@@ -2,3 +2,4 @@ coverage
 mock
 nose
 pep8
+tox
