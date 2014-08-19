@@ -72,3 +72,52 @@ class BackoffTest(unittest.TestCase):
             mock_sleep.reset_mock()
 
         self.assertEqual(i, max_tries - 1)
+
+
+class BooleanTest(unittest.TestCase):
+    truth_table = [
+        ('TrUe', True),
+        ('t', True),
+        ('T', True),
+        ('yEs', True),
+        ('y', True),
+        ('Y', True),
+        ('oN', True),
+        ('1', True),
+        ('120', True),
+        ('FaLsE', False),
+        ('f', False),
+        ('F', False),
+        ('nO', False),
+        ('n', False),
+        ('N', False),
+        ('oFf', False),
+        ('0', False),
+        ('000', False),
+        ('other', None),
+        (True, True),
+        (False, False),
+        (1, True),
+        (0, False),
+    ]
+
+    def test_with_raise(self):
+        for value, expected in self.truth_table:
+            if expected is None:
+                self.assertRaises(ValueError, utils.boolean, value)
+            else:
+                self.assertEqual(expected, utils.boolean(value))
+
+    def test_default_false(self):
+        for value, expected in self.truth_table:
+            if expected is None:
+                expected = False
+
+            self.assertEqual(expected, utils.boolean(value, False))
+
+    def test_default_true(self):
+        for value, expected in self.truth_table:
+            if expected is None:
+                expected = True
+
+            self.assertEqual(expected, utils.boolean(value, True))

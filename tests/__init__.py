@@ -16,6 +16,14 @@
 import six
 
 
+class TestException(Exception):
+    """
+    An exception for the use of tests.
+    """
+
+    pass
+
+
 def fake_join(a, *p):
     """
     Lifted from the POSIX implementation of os.path, for testing

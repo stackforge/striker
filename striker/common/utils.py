@@ -16,6 +16,8 @@
 import os
 import time
 
+import six
+
 
 def canonicalize_path(cwd, path):
     """
@@ -56,3 +58,42 @@ def backoff(max_tries):
         # time
         time.sleep(sleep)
         sleep <<= 1
+
+
+def boolean(value, default=None):
+    """
+    Convert a string value into a boolean.  The values 'true', 't',
+    'yes', 'y', and 'on', as well as non-zero integer values, are
+    recognized as ``True``, while the values 'false', 'f', 'no', 'n',
+    and 'off', as well as the integer value 0, are recognized as
+    ``False``.  A ``ValueError`` is raised for other values unless the
+    ``default`` parameter is given, in which case it is returned.
+
+    :param value: The string value to be converted to boolean.
+    :param default: If not ``None``, specifies the desired default
+                    value if the ``value`` is not one of the
+                    recognized values.
+
+    :returns: The boolean value derived from the string.
+    """
+
+    # Cover non-string case
+    if not isinstance(value, six.string_types):
+        return bool(value)
+
+    # Cover the integer case
+    if value.isdigit():
+        return bool(int(value))
+
+    # Check for recognized values
+    tmp = value.lower()
+    if tmp in ('true', 't', 'yes', 'y', 'on'):
+        return True
+    elif tmp in ('false', 'f', 'no', 'n', 'off'):
+        return False
+
+    # Return the default value
+    if default is not None:
+        return default
+
+    raise ValueError('invalid boolean literal %r' % value)
