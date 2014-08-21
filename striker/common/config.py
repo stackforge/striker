@@ -877,12 +877,6 @@ class ConfigMeta(type):
     configuration value keys to those ``Binding`` instances.  It also
     initializes schema-related class attributes, such as
     ``_schema_raw``, ``_schema_cache``, and ``_parents``.
-
-    Note that a class is officially an instance of its metaclass, so
-    methods and properties defined on ``ConfigMeta`` become class
-    methods and properties on the ``Config`` subclass.  These methods
-    and properties do not appear on *instances* of ``Config``,
-    however.
     """
 
     def __new__(mcs, name, bases, namespace):
